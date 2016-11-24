@@ -24,8 +24,7 @@ and open the template in the editor.
                 <h3 class="text-muted"></h3>
                 <nav>
                   <ul class="nav nav-justified">
-                    <li class="active"><a href="?page=home">Home</a></li>
-                    <li><a href="?page=list">Liste</a></li>
+                    <li class="active"><a href="?page=home">Accueil</a></li>
                     <li><a href="?page=connexion">Connexion/inscription</a></li>
                   </ul>
                 </nav>

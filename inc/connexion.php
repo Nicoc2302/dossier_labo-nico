@@ -222,26 +222,24 @@
         $log['identifiant'] = $identifiant;
         $log['psw'] = $psw;
         // Write Table
-        fwrite($open,implode('|',$log).PHP_EOL);
+        fwrite($open,implode('|',$log));
         fclose($open);
         
     }
     
     if ($connexion== 'Envoyer' && empty($error)){
         $identifiant_co = $_POST['identifiant_co'];
-        $psw_co=trim($_POST['psw_co']);
-        echo($psw_co);
+        $psw_co=$_POST['psw_co'];
+        echo(">$psw_co<");
         $filename = "files/identifiant.txt";
-        $lines = file($filename);
+        $lines = file($filename,FILE_IGNORE_NEW_LINES);
         for($i=0;$i<count($lines);$i++)
         {
             $split =explode("|", $lines[$i]);
-            echo($split[7]);
+            echo(">$split[7]<");
             if($split[6]==$identifiant_co && $split[7]==$psw_co)
             {
                 echo"connecter";
-                echo($split[6]."   ".$split[7]);
-                echo($identifiant_co."   ".$psw_co);
             }
             else
             {

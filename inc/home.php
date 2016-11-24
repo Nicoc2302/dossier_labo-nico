@@ -1,42 +1,54 @@
+<?php $name = isset($_POST['name'])? $_POST['name']:""; ?>
 <div class="row">
     <div class="col-md-8 ">
     	<h1>Derniere liste créer</h1>
         <p>
             <?php
                 
-                $filename = "files/test.txt";
+                $filename = "files/liste.txt";
                 if($_SERVER['REQUEST_METHOD']=='POST'){
 
-                    $titre = $_POST['titre'];
-                    $message_news = $_POST['message_news'];
-                    $open = fopen($filename, 'a');
-                    // Creat a table
-                    $news = array();
-                    $news['titre'] = $titre;
-                    $news['message_news'] = str_replace(array("\r\n", "\r", "\n"), "<br />",$message_news);
-                    // Write Table
-                    fwrite($open,implode('|',$news).PHP_EOL);
-                    fclose($open);
+                    $name = $_POST['name'];
 
                 }
+
                 
                 $lines = file($filename);
                 $lines = array_reverse($lines);
                 $start = 0;
-                define('NBLINE', 5);
+                define('NBLINE', 2);
                 if(isset($_GET['start']) && (intval($_GET['start']))){
                     $start = $_GET['start'];
                     $start = $start>0 ? ($start-1) *NBLINE:0;
                 }
-                
+                echo "<table border=1>";
+                echo"<tr>";
+                echo "<th>Nom et prénom</th>";
+                echo "<th>Lien vers la liste</th>";
+                echo"</tr>";
                 for($i=$start;$i<$start + NBLINE && $i<count($lines);$i++)
                 {
                     $split =explode("|", $lines[$i]);
-                    echo "<h1>$split[0]</h1>";
-                    echo "<p>$split[1]<p>";
+                    if($name==$split[0])
+                    {
+
+                        echo"<tr>";
+                        echo "<td>$split[0]</td>";
+                        echo "<td>$split[1]</td>";
+                        echo"</tr>";
+                    }
+                    elseif ($name =="")
+                    {
+                        echo"<tr>";
+                        echo "<td>$split[0]</td>";
+                        echo "<td>$split[1]</td>";
+                        echo"</tr>";
+                    }
+                   
                 }
+                echo "</table>";
                 ?>
-            
+                
         <nav aria-label="Page navigation" class="text-center">
                 <ul class="pagination">
             <?php
@@ -66,12 +78,8 @@
 
         <form method="post">
             <div class="form-group">
-              <label for="exampleInputtitre">Titre</label>
-              <input type="text" class="form-control" id="exampleInputtitre" placeholder="Titre" required name = "titre">
-            </div>
-            <div class="form-group">
-              <label for="exampleInputMessagenews">Message</label>
-              <textarea class="form-control" id="exampleInputMessagenews" placeholder="Message" required name = "message_news"></textarea>
+              <label for="exampleInputname">Nom d'un des parents</label>
+              <input type="text" class="form-control" id="exampleInputname" placeholder="Nom" required name = "name">
             </div>
             
             <input type="submit" class="btn btn-default"></input>
