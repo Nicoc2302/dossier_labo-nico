@@ -1,4 +1,5 @@
 <?php 
+    include('inc/function.php');
     $nompere = isset($_POST['nompere'])? $_POST['nompere']:"";
     $prenompere = isset($_POST['prenompere'])? $_POST['prenompere']:"";
     $nommere = isset($_POST['nommere'])? $_POST['nommere']:"";
@@ -17,7 +18,7 @@
     $error_mail_co="";
     $inscription = isset($_POST['inscription'])? $_POST['inscription']:"";
     $connexion = isset($_POST['connexion'])? $_POST['connexion']:"";
-    $identifiant_co = isset($_POST['identifiant_co'])? $_POST['identifiant_co']:"";
+    $mail_co = isset($_POST['mail_co'])? $_POST['mail_co']:"";
     $psw_co = isset($_POST['psw_co'])? $_POST['psw_co']:"";
     $error=array();
     $error_text = 0;
@@ -25,11 +26,11 @@
         echo "<pre>";
         print_r($_POST);
         echo "</pre>"; 
-        if (empty($_POST['identifiant_co']))
+        if (empty($_POST['mail_co']))
         {
             $error_text = 1;
             $error_email_co="has-error";
-            $error[]="Veuillez introduire un identifiant.";
+            $error[]="Veuillez introduire un email.";
             $error_class="has-error";
         }
         if (empty($_POST['psw_co']))
@@ -143,8 +144,8 @@
     <article class="col-md-6">
         <form method="post">
             <article class="form-group <?php echo $error_email_co; ?>">
-              <label for="exampleInputidentifiant_co">Identifiant</label>
-              <input type="text" class="form-control" id="exampleInputidentifiant_co" placeholder="Identifiant" required name = "identifiant_co" value=<?php echo $identifiant_co ;?>>
+              <label for="exampleInputmail_co">mail</label>
+              <input type="text" class="form-control" id="exampleInputmail_co" placeholder="Identifiant" required name = "mail_co" value=<?php echo $mail_co ;?>>
             </article>
             <article class="form-group <?php echo $error_email_co; ?>">
               <label for="exampleInputpsw_co">Mot de passe</label>
@@ -197,7 +198,7 @@
 
 <?php 
     if ($inscription== 'Envoyer' && empty($error)) {
-        $filename = "files/identifiant.txt";
+        
         $nompere = $_POST['nompere'];
         $prenompere = $_POST['prenompere'];
         $nommere = $_POST['nommere'];
@@ -206,40 +207,27 @@
         $mail = $_POST['mail'];
         $identifiant = $_POST['identifiant'];
         $psw = $_POST['passeword'];
-        $open = fopen($filename, 'a');
         if (empty($_POST['prenomenfant']))
         {
             $prenomenfant = "Inconnu";
         }
         // Create a table
-        $log = array();
-        $log['nompere'] = $nompere;
-        $log['prenompere'] = $prenompere;
-        $log['nommere'] = $nommere;
-        $log['prenommere'] = $prenommere;
-        $log['prenomenfant'] = $prenomenfant;
-        $log['mail'] = $mail;
-        $log['identifiant'] = $identifiant;
-        $log['psw'] = $psw;
-        // Write Table
-        fwrite($open,implode('|',$log));
-        fclose($open);
+        createUser($mail, $prenompere, $nompere,$prenommere,$nommere, $identifiant,$prenomenfant, $psw);
         
     }
     
     if ($connexion== 'Envoyer' && empty($error)){
-        $identifiant_co = $_POST['identifiant_co'];
+        $mail_co = $_POST['mail_co'];
         $psw_co=$_POST['psw_co'];
-        echo(">$psw_co<");
-        $filename = "files/identifiant.txt";
+
+        $filename = "./users/".$mail_co."/data.txt";
         $lines = file($filename,FILE_IGNORE_NEW_LINES);
         for($i=0;$i<count($lines);$i++)
         {
             $split =explode("|", $lines[$i]);
-            echo(">$split[7]<");
-            if($split[6]==$identifiant_co && $split[7]==$psw_co)
+            if($split[5]==$mail_co && $split[7]==$psw_co)
             {
-                echo"connecter";
+                $_GET['page'] = '?page=admin';
             }
             else
             {
