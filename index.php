@@ -25,12 +25,22 @@ and open the template in the editor.
                 <nav>
                   <ul class="nav nav-justified">
                     <li class="active"><a href="?page=home">Accueil</a></li>
-                    <li><a href="?page=connexion">Connexion/inscription</a></li>
-                  </ul>
+                    <?php if (empty($_SESSION['email'])) 
+                    {
+                    	echo "<li><a href='?page=connexion'>Connexion/inscription</a></li>";
+                    } 
+                    else
+                    {
+                    	echo "<li><a href='?page=admin'>Mes listes</a></li>";
+                    	echo "<li><a href='?page=deco'>Déconnexion</a></li>";
+                    }
+                    ?>
+                    </ul>
                 </nav>
             </header>
             <section class="row background">
                 <article class="col-md-12">
+                <p>Bienvenue <?php echo ($_SESSION['email']?$_SESSION['email']:'Visiteur')  ?> </p>
                     <?php
                         $page = (isset($_GET['page'])) ? $_GET['page'] : 'home';
                         $page = 'inc/' . $page . '.php';

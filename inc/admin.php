@@ -1,19 +1,5 @@
 <section class="row">
-    <article class="col-md-6">
-        <form method="post">
-            <article class="form-group <?php echo $error_email_co; ?>">
-              <label for="exampleInputidentifiant_co">Identifiant</label>
-              <input type="text" class="form-control" id="exampleInputidentifiant_co" placeholder="Identifiant" required name = "identifiant_co" >
-            </article>
-            <article class="form-group <?php echo $error_email_co; ?>">
-              <label for="exampleInputpsw_co">Mot de passe</label>
-              <input type="password" class="form-control" id="exampleInputpsw_co" placeholder="Mot de passe" required name = "psw_co"> 
-            </article>
-            
-            <input type="submit" class="btn btn-default" name = "connexion"></input>
-        </form>
-    </article>
-
+    
     <article class="col-md-6">
         <form method="post">
         	<article class="form-group <?php echo $error_email; ?>">
