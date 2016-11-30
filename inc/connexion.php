@@ -39,15 +39,16 @@
             if ($connexion== 'Envoyer' && empty($error)){
                 $mail_co = $_POST['mail_co'];
                 $psw_co=$_POST['psw_co'];
-
+                $psw_co=md5($psw_co);
                 $filename = "./users/".$mail_co."/data.txt";
                 $lines = file($filename,FILE_IGNORE_NEW_LINES);
                 for($i=0;$i<count($lines);$i++)
                 {
                     $split =explode("|", $lines[$i]);
+                    print_r($split);
                     if($split[5]==$mail_co && $split[6]==$psw_co)
                     {
-                        //echo "<h1>TEST</h1>";
+                        echo "<h1>TEST</h1>";
                         $_SESSION['prenompere']=$split[1];
                         $_SESSION['nompere']=$split[0];
                         $_SESSION['prenommere']=$split[3];
@@ -80,11 +81,11 @@
 
     /** Inscription **/
     if (!empty($inscription)) { 
-        if (empty($_POST['mail']))
+        if (empty($_POST['mail']) || !filter_var($_POST['mail'], FILTER_VALIDATE_EMAIL))
         {
             $error_text = 1;
             $error_email="has-error";
-            $error[]="Veuillez introduire une adresse mail.";
+            $error[]="Veuillez introduire une adresse mail valide.";
             $error_class="has-error";
         }
         if (empty($_POST['nompere']))
@@ -125,27 +126,34 @@
         }
         
         if (empty($error)) {
-        /****/
-            if ($inscription== 'Envoyer' && empty($error)) {
+            $nompere = $_POST['nompere'];
+            $prenompere = $_POST['prenompere'];
+            $nommere = $_POST['nommere'];
+            $prenommere = $_POST['prenommere'];
+            $prenomenfant = $_POST['prenomenfant'];
+            $mail = $_POST['mail'];
+            require './inc/function.php';
+            if ($inscription== 'Envoyer' && empty($error) && !userExists($mail)) {
                 echo "<div class='alert alert-success' role='alert'>Formulaire envoyé avec succès</div>";
-                $nompere = $_POST['nompere'];
-                $prenompere = $_POST['prenompere'];
-                $nommere = $_POST['nommere'];
-                $prenommere = $_POST['prenommere'];
-                $prenomenfant = $_POST['prenomenfant'];
-                $mail = $_POST['mail'];
+                
 
                 $psw = $_POST['passeword'];
+                $psw = md5($psw);
                 if (empty($_POST['prenomenfant']))
                 {
                     $prenomenfant = "Inconnu";
                 }
-                require 'inc/function.php';
+                require './inc/function.php';
                 // Create a table
                 createUser($mail, $prenompere, $nompere,$prenommere,$nommere,$prenomenfant, $psw);
                 
             }
+            else
+            {
+                echo"<div class='alert alert-danger' role='alert'>adresse mail déja utilisé!</div>";
+            }
        }
+
         /*****/
           
         else{
