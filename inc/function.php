@@ -14,6 +14,13 @@ function createUser($mail, $prenompere,$nompere,$prenommere,$nommere,$prenomenfa
 	fwrite($userFile,implode('|',$log));
 	fclose($userFile);
 }
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+
+=======
+>>>>>>> origin/master
+>>>>>>> Stashed changes
 function userExists($mail) {
     if (is_dir("./users/".$mail)) {
         return true;

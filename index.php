@@ -11,17 +11,20 @@ and open the template in the editor.
 <html>
     <head>
         <meta charset="UTF-8">
-        <title></title>
+        <title>BabyDoom</title>
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/custom.css" rel="stylesheet">
-        <link rel="icon" type="image/png" href="img/logo.png" />
+        <link rel="icon" type="image/icon" href="img/logo.ico" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     </head>
     <body>
         <div class="container">
             <header class="masthead">
-                <img src="">
-                <h3 class="text-muted"></h3>
+                <section>
+                
+                <h1 align='middle'><img src="img/titre.png" class="titre" width="120px">BabyDoom</h1>
+                </section>
+                <section>
                 <nav>
                   <ul class="nav nav-justified">
                     <li class="active"><a href="?page=home">Accueil</a></li>
@@ -37,6 +40,7 @@ and open the template in the editor.
                     ?>
                     </ul>
                 </nav>
+                </section>
             </header>
             <section class="row background">
                 <article class="col-md-12">

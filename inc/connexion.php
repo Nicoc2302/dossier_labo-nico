@@ -21,11 +21,18 @@
 
     /** Connection **/
     if (!empty($connexion)) {
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+        if (empty($_POST['mail_co'])|| !filter_var($_POST['mail_co'], FILTER_VALIDATE_EMAIL))
+=======
+>>>>>>> Stashed changes
         if (empty($_POST['mail_co']))
+>>>>>>> origin/master
         {
             $error_text = 1;
             $error_email_co="has-error";
-            $error[]="Veuillez introduire un email.";
+            $error[]="Veuillez introduire un email correcte.";
             $error_class="has-error";
         }
         if (empty($_POST['psw_co']))
@@ -45,7 +52,14 @@
                 for($i=0;$i<count($lines);$i++)
                 {
                     $split =explode("|", $lines[$i]);
+<<<<<<< Updated upstream
                     print_r($split);
+=======
+<<<<<<< HEAD
+=======
+                    print_r($split);
+>>>>>>> origin/master
+>>>>>>> Stashed changes
                     if($split[5]==$mail_co && $split[6]==$psw_co)
                     {
                         echo "<h1>TEST</h1>";
@@ -61,7 +75,15 @@
                     }
                     else
                     {
+<<<<<<< Updated upstream
                         echo "error";
+=======
+<<<<<<< HEAD
+                        echo "<div class='alert alert-danger' role ='alert'>Vous n'ètes pas encore inscrit</div>";
+=======
+                        echo "error";
+>>>>>>> origin/master
+>>>>>>> Stashed changes
                     }
                 }
             }
@@ -143,7 +165,14 @@
                 {
                     $prenomenfant = "Inconnu";
                 }
+<<<<<<< Updated upstream
                 require './inc/function.php';
+=======
+<<<<<<< HEAD
+=======
+                require './inc/function.php';
+>>>>>>> origin/master
+>>>>>>> Stashed changes
                 // Create a table
                 createUser($mail, $prenompere, $nompere,$prenommere,$nommere,$prenomenfant, $psw);
                 

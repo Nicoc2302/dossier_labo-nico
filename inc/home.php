@@ -1,7 +1,7 @@
 <?php $name = isset($_POST['name'])? $_POST['name']:""; ?>
 <div class="row">
     <div class="col-md-8 ">
-    	<h1>Derniere liste créer</h1>
+    	<h2>Derniere liste créer</h2>
         <p>
             <?php
                 
